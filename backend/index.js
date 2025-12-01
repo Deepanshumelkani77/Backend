@@ -4,7 +4,7 @@ const cors = require("cors");
 const Razorpay = require("razorpay");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 // ⭐ REQUIRED: Parse JSON body
 app.use(express.json());
@@ -12,17 +12,17 @@ app.use(express.json());
 // ⭐ CORS FIX
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173/",
-      "https://assignment-zmau.vercel.app/",
-      "https://assignment-xjm2.onrender.com/"
-    ],
+    origin:"*" ,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
 );
 
-
+// [
+//       "http://localhost:5173/",
+//       "https://assignment-zmau.vercel.app/",
+//       "https://assignment-xjm2.onrender.com/"
+//     ]
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
