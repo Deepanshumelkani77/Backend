@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
+      "http://localhost:5173/",
       "https://assignment-zmau.vercel.app",
       "https://assignment-xjm2.onrender.com"
     ],
