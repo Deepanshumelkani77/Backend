@@ -12,7 +12,7 @@ app.use(express.json());
 // ⭐ CORS FIX
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://assignment-zmau.vercel.app",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
