@@ -12,8 +12,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://assignment-zmau.vercel.app",
-      "https://assignment-xjm2.onrender.com"
+      "https://assignment-59sj.vercel.app/",
+      
     ],
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
