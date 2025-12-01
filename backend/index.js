@@ -4,57 +4,49 @@ const cors = require("cors");
 const Razorpay = require("razorpay");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// ⭐ REQUIRED: Parse JSON body
 app.use(express.json());
 
-// ⭐ CORS FIX
 app.use(
   cors({
-    origin:"http://localhost:5173" ,
-    methods: ["GET", "POST"],
+    origin: [
+      "http://localhost:5173",
+      "https://assignment-zmau.vercel.app",
+      "https://assignment-xjm2.onrender.com"
+    ],
+    methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
   })
 );
 
-// [
-//       "http://localhost:5173/",
-//       "https://assignment-zmau.vercel.app/",
-//       "https://assignment-xjm2.onrender.com/"
-//     ]
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// Render fix (MANDATORY)
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
 });
 
-// ⭐ Razorpay setup
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-// ⭐ Create order
 app.post("/create-order", async (req, res) => {
-  const { amount } = req.body;
-
-  console.log("🧾 Received payment amount:", amount);
-
-  if (!amount) {
-    return res.status(400).json({ error: "Amount is required" });
-  }
-
   try {
+    const { amount } = req.body;
+
     const order = await razorpay.orders.create({
-      amount: amount * 100, // in paise
+      amount: amount * 100,
       currency: "INR",
       receipt: "receipt_" + Date.now(),
     });
 
-    console.log("🟢 Razorpay order created:", order);
-    res.status(200).json(order);
+    res.json(order);
   } catch (err) {
-    console.error("🔴 Razorpay error:", err);
     res.status(500).json({ error: "Razorpay order creation failed" });
   }
 });
+
+app.listen(port, () => console.log("Server running on", port));
