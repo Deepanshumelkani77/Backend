@@ -12,11 +12,15 @@ app.use(express.json());
 // ⭐ CORS FIX
 app.use(
   cors({
-    origin: "https://assignment-zmau.vercel.app",
+    origin: [
+      "https://assignment-zmau.vercel.app",
+      "https://assignment-xjm2.onrender.com"
+    ],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
 );
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
