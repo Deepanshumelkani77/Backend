@@ -12,7 +12,7 @@ app.use(express.json());
 // ⭐ CORS FIX
 app.use(
   cors({
-    origin:"*" ,
+    origin:"http://localhost:5173" ,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
